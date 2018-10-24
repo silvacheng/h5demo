@@ -215,14 +215,6 @@
           return
         }
         this.backUpData = null
-      },
-      onSuccess() {
-        this.alertContent = '调用安卓组件成功'
-        this.showAlert = true
-      },
-      onError(code, message) {
-        this.alertContent = `调用安卓组件失败  code:${code} message:${message}`
-        this.showAlert = true
       }
     }
   }
