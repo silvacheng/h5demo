@@ -19,7 +19,8 @@ module.exports = {
         }
       },    
       '/iscportal': {	//会议demo
-        target: 'http://172.18.63.217:18080/iscportal',
+        // target: 'http://172.18.63.217:18080/iscportal',
+        target: 'http://192.168.26.202:30011/iscportal/',
         changeOrigin: true,      
         pathRewrite: {
           '^/iscportal/': ''

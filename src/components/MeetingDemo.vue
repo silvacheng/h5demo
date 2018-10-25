@@ -7,13 +7,18 @@
         <div class="flex-demo">
           <dl>
             <dt>
-              <img :src="item.picAddr" alt="" width="80" height="80">
+              <img :src='baseUrl + item.prsnAvtrUrlAddr' alt="" width="80" height="80">
             </dt>
             <dd>
               {{item.prsnName}}
             </dd>
             <dd>
               {{_formatTime(item.capturedTime)}}
+            </dd>
+            <dd>
+              相差：{{
+                current - item.capturedTime
+              }}ms
             </dd>
           </dl>
         </div>
@@ -36,11 +41,13 @@
     data() {
       return {
         list: new Array(10),
-        listClone: new Array(10),
+        listClone: [],
         timer: null,
         delay: 300,
         requestIndex: 0,
-        registerDelay: 25
+        registerDelay: 25,
+        baseUrl: "fileupdown/downloadBusiFile?filePath=",
+        current: +new Date()     
       }
     },
     computed: {
@@ -61,61 +68,60 @@
         AjaxPlugin.$http.post(url).then(res => {
  
           if(res.status === 200 && res.data.returnCode === '0000') {
+            // 获取后台数据
+            let newList = this._stringToJson(res.data.ext1.abc)
+            // 判断后台数据与备份数据是否相同
+            let isEqual = _.isEqual(newList, this.listClone)
+
             this.requestIndex++
             if(this.requestIndex === 1) {
-              this.list = this._stringToJson(res.data.ext1.abc)
+
+              this.list = newList
+
             } else {
-              this.list = this.list.concat(this._stringToJson(res.data.ext1.abc))
+              // 后台数据与备份数据相同
+              if (isEqual) {
+                console.log('后台数据与备份数据相同')
+                return
+              }
             }
 
-            // console.log(`当前list的长度为${this.list.length}`)
+            // 后台数据与备份数据不相同   更新listClone
+            this.listClone = newList
+            // 合并
+            this.list = this.list.concat(newList)
+            // 去重
+            this.list = _.uniq(this.list)
 
+            // 排序
             // 数组进行排序 时间戳大的排在前面
             this.list.sort((a, b) => b.capturedTime - a.capturedTime)
-
+            console.log('取前十个之前 -----> ')
+            console.log(this.list)
             if(this.list.length >= 10) {
               this.list = this.list.slice(0, 10)
             }
-
-            // console.log(this.list)
+            console.log('取前十个之后 -----> ')
+            console.log(this.list)
             if(this.requestIndex !== 1) {
               animations.unregisterAnimation('move')
             }
-            // let str = this.listClone === this.list ? '数组数据相同' : '数组数据不相同'
-            // console.log(str)
-            console.log(`----------------->>`)
-            console.log(_.isEqual(this.list, this.listClone))
-            let isEqual = _.isEqual(this.list, this.listClone)
-            if(!isEqual){
-              setTimeout(() => {
-                this._setAnimation()              
-              }, this.registerDelay)
-            } else {
-              return
-            }
 
-            // 备份数组数据
-            this.listClone = this.list
+            // 设置动画
+            setTimeout(() => {
+              this._setAnimation()              
+            }, this.registerDelay)
+
+            // if(!isEqual){
+            //   setTimeout(() => {
+            //     this._setAnimation()              
+            //   }, this.registerDelay)
+            // } else {
+            //   return
+            // }
 
           }
-          // if(res.data.code === 0) {
-          //   this.requestIndex++
-          //   this.list.unshift(res.data.result.list)
-          //   if(this.list.length >= 8) {
-          //     this.list = this.list.slice(0, 8)
-          //   }
 
-          //   if(this.requestIndex !== 1) {
-
-          //     animations.unregisterAnimation('move')
-          //   }
-
-
-          //   setTimeout(() => {
-          //     this._setAnimation()              
-          //   }, this.registerDelay)
-          //   // this._setAnimation()
-          // }
         })
       },
       _setAnimation() {
