@@ -7,7 +7,7 @@ import App from './App'
 import router from './router'
 // import Home from './components/HelloFromVux'
 // import { AjaxPlugin } from 'vux'
-import vConsole from 'vconsole'
+// import vConsole from 'vconsole'
 // Vue.use(VueRouter)
 // console.log(AjaxPlugin)
 // const routes = [{
