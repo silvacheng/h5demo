@@ -50,7 +50,9 @@ export default {
       requestIndex: 0,
       registerDelay: 25,
       baseUrl: "fileupdown/downloadBusiFile?filePath=",
-      current: +new Date()
+      current: +new Date(),
+      intervalArray: new Array(10),
+      intervalArrayCopy: new Array(10)
     };
   },
   computed: {
@@ -59,10 +61,10 @@ export default {
     }
   },
   mounted() {
-    this.timer = setInterval(() => {
-      this._getData();
-    }, this.delay);
-    // this._getData()
+    // this.timer = setInterval(() => {
+    //   this._getData();
+    // }, this.delay);
+    this._getData()
   },
   methods: {
     _getData() {
@@ -96,15 +98,21 @@ export default {
           // 排序
           // 数组进行排序 时间戳大的排在前面
           this.list.sort((a, b) => b.capturedTime - a.capturedTime);
-          console.log("取前十个之前 -----> ");
-          console.log(this.list);
+          // console.log("取前十个之前 -----> ");
+          // console.log(this.list);
           // 更新当前时间
           this.current = +new Date()
           if (this.list.length >= 10) {
             this.list = this.list.slice(0, 10);
           }
-          console.log("取前十个之后 -----> ");
-          console.log(this.list);
+          // console.log("取前十个之后 -----> ");
+          // console.log(this.list);
+          // console.log(this._addInterval(this.list))
+          // 给数组数据添加interval以及timeStamp
+          this.intervalArray = this._addInterval(this.list)
+          // 备份数组
+          this.intervalArrayCopy = this.intervalArray
+
           if (this.requestIndex !== 1) {
             animations.unregisterAnimation("move");
           }
@@ -177,6 +185,20 @@ export default {
         ":" +
         sec
       );
+    },
+    _addInterval(arr) {
+      let ret = _.cloneDeep(arr)
+      ret.map(item => {
+        let interval = this.current - Number(item.capturedTime)
+        let timeStamp = +new Date()
+        item['interval'] = interval;
+        item['timeStamp'] = timeStamp;
+        return item
+      })
+      return ret
+    },
+    _filterIntervalArray() {
+      
     }
   },
   destroyed() {
