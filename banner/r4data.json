@@ -1,0 +1,60 @@
+{
+
+  "北京": [{
+      "img": "banner01.png",
+      "type": "1"
+    },
+    {
+      "img": "banner01.png",
+      "url": "http://www.taobao.com",
+      "title": "111",
+      "type": "0"
+    },
+    {
+      "img": "banner02.png",
+      "url": "http://fanyi.youdao.com/",
+      "title": "222",
+      "type": "0"
+    },
+    {
+      "img": "banner03.png",
+      "url": "http://element-cn.eleme.io/#/zh-CN",
+      "title": "333",
+      "type": "0"
+    },
+    {
+      "img": "banner01.png",
+      "url": "http://192.168.93.14:8085/",
+      "title": "444",
+      "type": "0"
+    }
+  ],
+  "全国": [{
+      "img": "banner01.png",
+      "url": "http://www.baidu.com",
+      "type": "1"
+    },
+    {
+      "img": "banner01.png",
+      "url": "http://www.taobao.com",
+      "type": "0",
+      "title": "北京"
+    }
+  ],
+  "云南": [{
+      "img": "https://smz.cmcc-cs.cn:30001/commons/ytjadr4/1547603697491.png",
+      "url": "",
+      "type": "1"
+    },
+    {
+      "img": "https://smz.cmcc-cs.cn:30001/commons/ytjadr4/1547717372055.jpg",
+      "url": "http://218.202.0.211/yn/realName/out/ui/scratchCard/index.html",
+      "type": "0"
+    },
+    {
+      "img": "https://smz.cmcc-cs.cn:30001/commons/ytjadr4/1547717376280.jpg",
+      "url": "http://dx.10086.cn/0XVRvyY3",
+      "type": "0"
+    }
+  ]
+}

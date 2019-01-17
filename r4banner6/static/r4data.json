@@ -1,0 +1,44 @@
+{
+  "河南": [{
+    "img": "banner01.png",
+    "url": "aa",
+    "type": "0"
+  }, {
+    "img": "banner02.png",
+    "url": "bb",
+    "type": "0"
+  }, {
+    "img": "banner03.png",
+    "url": "cc",
+    "type": "0"
+  }, {
+    "img": "banner04.png",
+    "url": "dd",
+    "type": "0"
+  }, {
+    "img": "bg.png",
+    "url": "",
+    "type": "1"
+  }],
+  "全国": [{
+    "img": "banner01.png",
+    "url": "aa",
+    "type": "0"
+  }, {
+    "img": "banner02.png",
+    "url": "bb",
+    "type": "0"
+  }, {
+    "img": "banner03.png",
+    "url": "cc",
+    "type": "0"
+  }, {
+    "img": "banner04.png",
+    "url": "dd",
+    "type": "0"
+  }, {
+    "img": "bg.png",
+    "url": "",
+    "type": "1"
+  }]
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>一体机聚合页面</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/index_ytj.css"/>
+    <script type="text/javascript" src="./libs/jquery.js"></script>
+</head>
+<body>
+<div class="container">
+    <ul class="list clear">
+
+    </ul>
+    <div class="no_msg">该地区无可用活动！</div>
+</div>
+<script>
+    $(function(){
+        var provinceName  = getQueryString('provinceName') || "";
+        $.ajax({
+            url:'http://192.168.100.51:20120/topImg/jhy_ytj/jhy_ytj.html',
+            data:{
+                provinceName:provinceName,
+                uid:'aggreg_0004'
+            },
+            type:"POST",
+            dataType:'json',
+            success:function(res){
+                if(res.returnCode == "9999" && res.beans.length){
+                    var html = '';
+                    var lists = res.beans;
+                    for(var i = 0,len = lists.length; i < len; i ++){
+                        html += '<li class="list_item"><a href="' + lists[i].actUrl +'"><img src="' + lists[i].imagePath + '"/></a><h4>'+lists[i].actTitle +'</h4><p>'+lists[i].actIntroduce+'</p></li>'
+                    }
+                    $(".list").html(html);
+                }else{
+                    $(".list").hide();
+                    $(".no_msg").show();
+                }
+            }
+        });
+    });
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return decodeURIComponent(r[2]);
+        return null;
+    }
+</script>
+</body>
+</html>
